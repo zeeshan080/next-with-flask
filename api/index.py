@@ -1,7 +1,8 @@
 from flask import Flask,request
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 #todo list will be stored in this list representing a database
 todos = []
 

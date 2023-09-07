@@ -61,3 +61,8 @@ module.exports = nextConfig
 npx shadcn-ui@latest init
 
 12. link state update from frontend to api using zustand
+
+
+13. Before deployment to vercel add CORS in flask
+
+pip install flask-cors
