@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+1. Create Nextjs 13 project
 
-## Getting Started
+npx create-next-app@latest
 
-First, run the development server:
+2. check python installation and create virtual envoirnment and activate it
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+python --version
+python -m venv venv (any name you want)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. check pip version and packages and install flask
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+pip --version
+pip list
+pip install flask
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. create api directory in root folder and index.py
 
-## Learn More
+(in root of your folder)
 
-To learn more about Next.js, take a look at the following resources:
+	-src
+	-api
+	  -index.py
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. install concurrently
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+npm install concurrently
 
-## Deploy on Vercel
+6. add scripts update in package.json
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+"flask-dev": "python -m flask --app api/index run -p 8000 --reload",
+"next-dev": "next dev",
+"dev": "concurrently \"npm run next-dev\" \"npm run flask-dev\"",
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+7. proxy request at localhost:3000 to 127.0.0.1:8080
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    rewrites: async () => {
+        return [
+        {
+            source: '/api/:path*',
+            destination:
+            process.env.NODE_ENV === 'development'
+                ? 'http://127.0.0.1:8000/api/:path*'
+                : '/api/',
+        },
+        ]
+  },
+}
+
+module.exports = nextConfig
+
+8. run project and verify that flask api is working
+
+9. create routes for CRUD in api
+
+10. add zustand and create store folder
+
+11. create frontend for the todo with shadcnui
+
+npx shadcn-ui@latest init
+
+12. link state update from frontend to api using zustand
