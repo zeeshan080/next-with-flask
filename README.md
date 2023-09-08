@@ -63,6 +63,9 @@ npx shadcn-ui@latest init
 12. link state update from frontend to api using zustand
 
 
-13. Before deployment to vercel add CORS in flask
+13. Before deployment to vercel add CORS in flask (for POST, DELETE and PUT/PATCH)
 
 pip install flask-cors
+
+check the working demo
+https://next-with-flask.vercel.app/
