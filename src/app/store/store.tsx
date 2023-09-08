@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export type Todo = {
-  id: number;
+  id: string;
   title: string;
   status: string;
 };
@@ -10,7 +10,7 @@ type TodoStore = {
   todos: Todo[];
   getAlltodos: () => Promise<void>;
   addTodo: (todo: Todo) => Promise<void>;
-  deleteTodo: (id: number) => Promise<void>;
+  deleteTodo: (id: string) => Promise<void>;
   updateTodo: (todo:Todo) => Promise<void>;
 };
 const URL = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -38,7 +38,7 @@ export const todoStore = create<TodoStore>((set) => ({
       set((state) => ({ todos: [...state.todos, todo] }));
     }
   },
-  deleteTodo: async (id: number) => {
+  deleteTodo: async (id: string) => {
     const response = await fetch(`${URL}/todo/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },

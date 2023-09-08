@@ -13,7 +13,7 @@ type Props = {};
 export default function TodoList({}: Props) {
   const { todos, getAlltodos, addTodo, deleteTodo, updateTodo } = todoStore();
   const [todo, setTodo] = useState("");
-  const [id, setId] = useState(0);
+  const [id, setId] = useState("");
   const [status, setStatus] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -23,7 +23,7 @@ export default function TodoList({}: Props) {
 
   const handleAddTodo = () => {
     const newTodo: Todo = {
-      id: Math.floor(Math.random() * 100 + 1),
+      id: String(Math.floor(Math.random() * 100 + 1)),
       title: todo,
       status: "pending",
     };
@@ -31,11 +31,11 @@ export default function TodoList({}: Props) {
     setTodo("");
     getAlltodos();
   };
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     deleteTodo(id);
     getAlltodos();
   };
-  const handleUpdate = (id: number, todotTitle: string, status: string) => {
+  const handleUpdate = (id: string, todotTitle: string, status: string) => {
     setId(id);
     setTodo(todotTitle);
     status === "completed" ? setStatus(true) : setStatus(false);

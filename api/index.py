@@ -27,7 +27,7 @@ def delete_todo(id):
     todo_id = id
     global todos
     #delete the todo from the todos list
-    todos = [todo for todo in todos if todo["id"] != todo_id]
+    todos = [todo for todo in todos if todo["id"] != str(todo_id)]
     return {'message':'success','status':200}
 
 #route for updating a todo
@@ -39,7 +39,7 @@ def update_todo(id):
     todoNew = request.json.get('todo')
     global todos
     #update the todo in the todos list
-    todoPrev = next((todo for todo in todos if todo["id"] == todo_id), None)
+    todoPrev = next((todo for todo in todos if todo["id"] == str(todo_id)), None)
     if todoPrev:
         todoPrev["id"] = todoNew["id"]
         todoPrev["title"] = todoNew["title"]
